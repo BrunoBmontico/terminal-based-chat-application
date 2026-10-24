@@ -108,10 +108,7 @@ static void handle_client(int ready_fd, struct epoll_event* buffer_ev, int socke
             if (r < 0) {
                 LOG(ERROR, strerror(errno));
                 epoll_ctl(epfd, EPOLL_CTL_DEL, fd, NULL);
-                close(fd);
-                remove_client(fd);
-            } else if (r == 0) {
-                LOG(INFO, "Client disconnected");
+                close(fd); remove_client(fd); } else if (r == 0) { LOG(INFO, "Client disconnected");
                 epoll_ctl(epfd, EPOLL_CTL_DEL, fd, NULL);
                 close(fd);
                 remove_client(fd);
